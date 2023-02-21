@@ -1,8 +1,6 @@
 import random
 import time
 import sys
-from os import path
-sys.path.append(path.abspath("C:/Users/jayol/OneDrive/Documents/School/Informatica/P3P3P3/Oy"))
 
 
 def ToLower(i):
