@@ -1,28 +1,26 @@
-import random
-import time
-import sys
+import random, time, sys, random, os
 
 
 def ToLower(i):
     try:
         i = str(i)
+        return i.lower()
     except ValueError:
         print("Fout: kan invoer niet veranderen naar 'string'")
-    return i.lower()
 
 def ToUpper(i):
     try:
         i = str(i)
+        return i.upper()
     except ValueError:
         print("Fout: kan invoer niet veranderen naar 'string'")
-    return i.upper()
 
 def ToInt(i = 0):
-    incorrectInput = False
-    while not incorrectInput:
+    correctInput = False
+    while not correctInput:
         try:
             i = int(i)
-            incorrectInput = True
+            correctInput = True
         except ValueError:
             print("Fout: kan invoer niet veranderen naar 'int'")
             i = input("\nProbeer een andere waarde in te vullen: ")
