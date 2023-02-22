@@ -194,15 +194,19 @@ def PlayGame():
     print("\nGame is gestart!\n\n " + sober + "\n")
     while not gameWon and not (mistakes >= 6):
         NoLetters = AddedLettersString == ''
+        lastChance = (mistakes >= 4)
+        lastChanceWarn = ''
+        if (lastChance):
+            lastChanceWarn = ' *Laatste zet!*'
         inputletter = input("\nLetter: ")
         inputletter = inputletter.lower()
         incorrectInput = ((len(inputletter) != 1) or (not IsValidLetter(inputletter)) or (AddedLetters.__contains__(inputletter)))
         while incorrectInput:
             Clear()
             if (NoLetters):
-                print(GetHangman(mistakes), "\n ", sober, "\n\nGebruikte letters: geen. (" + str(mistakes) + "/6)")
+                print(GetHangman(mistakes), "\n ", sober, "\n\nGebruikte letters: geen. Fouten: (" + str(mistakes) + "/6)" + lastChanceWarn)
             else:
-                print(GetHangman(mistakes), "\n ", sober, "\n\nGebruikte letters: ", str(AddedLettersString) + ". (" + str(mistakes) + "/6)")
+                print(GetHangman(mistakes), "\n ", sober, "\n\nGebruikte letters: ", str(AddedLettersString) + ". Fouten: (" + str(mistakes) + "/6)" + lastChanceWarn)
             print("\n\nDe invoer \"" + inputletter + "\" is onjuist")
             ErrorMessage = "Reden: "
             if (len(inputletter) != 1):
@@ -231,7 +235,7 @@ def PlayGame():
                             AddedLettersString = AddedLettersString + ', '
                         if not (AddedLettersString.__contains__(AddedLetters[i])):
                             AddedLettersString += AddedLetters[i]
-                    print(GetHangman(mistakes), "\n ", sober, "\n\nGebruikte letters: ", str(AddedLettersString) + ". (" + str(mistakes) + "/6)")
+                    print(GetHangman(mistakes), "\n ", sober, "\n\nGebruikte letters: ", str(AddedLettersString) + ". Fouten: (" + str(mistakes) + "/6)" + lastChanceWarn)
                 else:
                     GameEnd(False)
                     break
@@ -253,6 +257,6 @@ def PlayGame():
                         if (len(AddedLetters) > 1 and not (i == 0 or i == 0 )):
                             AddedLettersString = AddedLettersString + ', '
                         AddedLettersString += AddedLetters[i]
-                    print(GetHangman(mistakes), "\n ", sober, "\n\nGebruikte letters: ", str(AddedLettersString) + ". (" + str(mistakes) + "/6)")
+                    print(GetHangman(mistakes), "\n ", sober, "\n\nGebruikte letters: ", str(AddedLettersString) + ". Fouten: (" + str(mistakes) + "/6)" + lastChanceWarn)
 
 SetInputWord()
