@@ -48,10 +48,8 @@ def GetTextBubbleFrame(frame: int):
             String = ''
             for i in range(max(int(GetWordLength() * 0.1), 2)):
                 String += ' '
-            String += SelectedWord + '!'
-            for i in range(max(int(GetWordLength() * 0.1), 1)):
-                String += ' '
-            return "   (" + String + ")"
+            String += SelectedWord
+            return "   (" + String + "! )"
         case 3:
             String = ''
             for i in range(GetWordLength()):
@@ -68,8 +66,7 @@ def SetInputWord():
    SelectedWord = ""
    if SelectedWord != "":
        return
-   print("")
-   tempSelectedWord = getpass.getpass("Voer een woord in: ")
+   tempSelectedWord = getpass.getpass("\nVoer een woord in: ")
    tempSelectedWord = tempSelectedWord.lower()
    while not (IsValidWord(tempSelectedWord)):
        print("Dit woord is ongeldig!")
@@ -191,18 +188,21 @@ def PlayGame():
     sober = ""
     for x in range(len(checkerBoard)):
         sober += '_'
-    print("\nGame is gestart!\n\n " + sober + "\n")
+    print("\nGame is gestart!\n")
+    time.sleep(1.5)
+    Clear()
+    print(GetHangman(0), "\n ", sober, "\n\nGebruikte letters: geen. Fouten: (" + str(mistakes) + "/6)")
+
     while not gameWon and not (mistakes >= 6):
         NoLetters = AddedLettersString == ''
-        lastChance = (mistakes >= 4)
         lastChanceWarn = ''
-        if (lastChance):
-            lastChanceWarn = ' *Laatste zet!*'
         inputletter = input("\nLetter: ")
         inputletter = inputletter.lower()
         incorrectInput = ((len(inputletter) != 1) or (not IsValidLetter(inputletter)) or (AddedLetters.__contains__(inputletter)))
         while incorrectInput:
             Clear()
+            if (mistakes >= 5):
+                lastChanceWarn = ' *Laatste zet!*'
             if (NoLetters):
                 print(GetHangman(mistakes), "\n ", sober, "\n\nGebruikte letters: geen. Fouten: (" + str(mistakes) + "/6)" + lastChanceWarn)
             else:
@@ -229,6 +229,8 @@ def PlayGame():
                 if not (mistakes >= 5):
                     Clear()
                     mistakes += 1
+                    if (mistakes >= 5):
+                        lastChanceWarn = ' *Laatste zet!*'
                     AddedLettersString = ''
                     for i in range(len(AddedLetters)):
                         if (len(AddedLetters) > 1 and not (i == 0)):
@@ -252,6 +254,8 @@ def PlayGame():
                     break
                 else:
                     Clear()
+                    if (mistakes >= 5):
+                        lastChanceWarn = ' *Laatste zet!*'
                     AddedLettersString = ''
                     for i in range(len(AddedLetters)):
                         if (len(AddedLetters) > 1 and not (i == 0 or i == 0 )):
