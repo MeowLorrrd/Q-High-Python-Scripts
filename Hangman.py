@@ -1,14 +1,12 @@
 import time, getpass, platform, webbrowser, os
 
 print("\nRunning on Python version", str(platform.python_version()), "\n")
-time.sleep(0.1)#debugging shenn
 if not ((platform.python_version().__contains__("3.10")) or (platform.python_version().__contains__("3.11"))):
     print("\nJe hebt Python 3.10 of hoger nodig!\n")
     getpass.getpass("Druk op [Enter] om naar de Python website te gaan\n")
     webbrowser.open("https://www.python.org/downloads/")
     getpass.getpass("Druk op [Enter] om de app af te sluiten\n")
     quit()
-#print("Python 10 installed: ", hasPythonTen, "\nPython 11 installed: ", hasPythonEleven, "\nCan run app: ", hasIncorrectPyVer)
 
 def Clear():
     os.system('cls')
@@ -192,7 +190,6 @@ def PlayGame():
     time.sleep(1.5)
     Clear()
     print(GetHangman(0), "\n ", sober, "\n\nGebruikte letters: geen. Fouten: (" + str(mistakes) + "/6)")
-
     while not gameWon and not (mistakes >= 6):
         NoLetters = AddedLettersString == ''
         lastChanceWarn = ''
@@ -245,7 +242,6 @@ def PlayGame():
                 for j in range(GetWordLength()):
                     if (SelectedWord[j].__contains__(inputletter)):
                         checkerBoard[j] = inputletter
-                #print("Word length: ", GetWordLength(), "\nSelected word: ", SelectedWord, "\nInput Letter: ", inputletter, "\nChecker board: ", checkerBoard)
                 sober = ""
                 for k in range(len(checkerBoard)):
                     sober += checkerBoard[k]
@@ -262,5 +258,4 @@ def PlayGame():
                             AddedLettersString = AddedLettersString + ', '
                         AddedLettersString += AddedLetters[i]
                     print(GetHangman(mistakes), "\n ", sober, "\n\nGebruikte letters: ", str(AddedLettersString) + ". Fouten: (" + str(mistakes) + "/6)" + lastChanceWarn)
-
 SetInputWord()
