@@ -32,8 +32,8 @@ def GetHangman(type: int):
         case _:
             return "    _\n   /\"\\\n  \\\\_//\n   \\|/\n    |\n   / \\\n  /   \\"
 
-def GetTextBubble(type: int):
-    match type:
+def GetTextBubble(frame: int):
+    match frame:
         case 0:
             String = ''
             for i in range(GetWordLength()):
@@ -175,7 +175,8 @@ def GameEnd(won: bool = False):
         time.sleep(0.5)
         Replay()
     else:
-        print("Bedankt voor het spelen!\n")
+        Clear()
+        print("\nBedankt voor het spelen!\n")
         time.sleep(1.5)
         NewTimedText("Spel verlaten", 0.9, 3)
 
@@ -184,6 +185,7 @@ def PlayGame():
     gameWon = False
     AddedLetters = []
     checkerBoard = []
+    AddedLettersString = ''
     for i in range (GetWordLength()):
         checkerBoard.append('_')
     sober = ""
@@ -191,11 +193,16 @@ def PlayGame():
         sober += '_'
     print("\nGame is gestart!\n\n " + sober + "\n")
     while not gameWon and not (mistakes >= 6):
+        NoLetters = AddedLettersString == ''
         inputletter = input("\nLetter: ")
         inputletter = inputletter.lower()
         incorrectInput = ((len(inputletter) != 1) or (not IsValidLetter(inputletter)) or (AddedLetters.__contains__(inputletter)))
         while incorrectInput:
             Clear()
+            if (NoLetters):
+                print(GetHangman(mistakes), "\n ", sober, "\n\nGebruikte letters: geen. (" + str(mistakes) + "/6)")
+            else:
+                print(GetHangman(mistakes), "\n ", sober, "\n\nGebruikte letters: ", str(AddedLettersString) + ". (" + str(mistakes) + "/6)")
             print("\n\nDe invoer \"" + inputletter + "\" is onjuist")
             ErrorMessage = "Reden: "
             if (len(inputletter) != 1):
@@ -222,8 +229,9 @@ def PlayGame():
                     for i in range(len(AddedLetters)):
                         if (len(AddedLetters) > 1 and not (i == 0)):
                             AddedLettersString = AddedLettersString + ', '
-                        AddedLettersString += AddedLetters[i]
-                    print(GetHangman(mistakes), "\n ", sober, "\n\nGebruikte letters: ", str(AddedLettersString) + ". (" + str(mistakes) + "/5)")
+                        if not (AddedLettersString.__contains__(AddedLetters[i])):
+                            AddedLettersString += AddedLetters[i]
+                    print(GetHangman(mistakes), "\n ", sober, "\n\nGebruikte letters: ", str(AddedLettersString) + ". (" + str(mistakes) + "/6)")
                 else:
                     GameEnd(False)
                     break
@@ -245,6 +253,6 @@ def PlayGame():
                         if (len(AddedLetters) > 1 and not (i == 0 or i == 0 )):
                             AddedLettersString = AddedLettersString + ', '
                         AddedLettersString += AddedLetters[i]
-                    print(GetHangman(mistakes), "\n ", sober, "\n\nGebruikte letters: ", str(AddedLettersString) + ". (" + str(mistakes) + "/5)")
+                    print(GetHangman(mistakes), "\n ", sober, "\n\nGebruikte letters: ", str(AddedLettersString) + ". (" + str(mistakes) + "/6)")
 
 SetInputWord()
