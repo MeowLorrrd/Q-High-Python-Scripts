@@ -32,7 +32,7 @@ def GetHangman(type: int):
         case _:
             return "    _\n   /\"\\\n  \\\\_//\n   \\|/\n    |\n   / \\\n  /   \\"
 
-def GetTextBubble(frame: int):
+def GetTextBubbleFrame(frame: int):
     match frame:
         case 0:
             String = ''
@@ -167,7 +167,7 @@ def GameEnd(won: bool = False):
         replay = getpass.getpass("\nJe hebt het galgje opgehangen D:\nZijn laatste woorden waren: \"" + SelectedWord + "\"\n\nWil je het spel opnieuw spelen? [Y/N]: ")
     else:
         for i in range(0, 5):
-            print(GetTextBubble(i))
+            print(GetTextBubbleFrame(i))
         print(GetHangman(7))
         replay = getpass.getpass("\nJe hebt het galgje gered! :D\n\nWil je het spel opnieuw spelen? [Y/N]: ")
     if replay.__contains__('y'):
