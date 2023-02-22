@@ -1,8 +1,4 @@
-import time
-import getpass
-import platform
-import webbrowser
-import os
+import time, getpass, platform, webbrowser, os
 
 print("\nRunning on Python version", str(platform.python_version()), "\n")
 time.sleep(0.1)#debugging shenn
