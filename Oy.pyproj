@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>3492c371-9c85-4ebb-9425-1b3bacdcbbd0</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Hangman.py</StartupFile>
+    <StartupFile>Pong.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -26,6 +26,7 @@
     <Compile Include="Hangman.py" />
     <Compile Include="HigherLower.py" />
     <Compile Include="ISITAEVENORODDNUMBER.py" />
+    <Compile Include="Pong.py" />
     <Compile Include="Utils.py" />
   </ItemGroup>
   <ItemGroup>
