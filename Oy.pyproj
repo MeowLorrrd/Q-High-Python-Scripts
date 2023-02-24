@@ -25,6 +25,7 @@
   <ItemGroup>
     <Compile Include="Hangman.py" />
     <Compile Include="HigherLower.py" />
+    <Compile Include="ISITAEVENORODDNUMBER.py" />
     <Compile Include="Utils.py" />
   </ItemGroup>
   <ItemGroup>

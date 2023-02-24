@@ -12,5 +12,5 @@ while not validInput:
         break
     except ValueError:
         print('Can\'t convert to type \'int\'')
-        Input = input('nummer (pt2):')
+        Input = input('nummer (pt2): ')
 print('Is it even?: ' + str(bool(IsEven(Input))))
