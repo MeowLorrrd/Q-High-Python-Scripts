@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>3492c371-9c85-4ebb-9425-1b3bacdcbbd0</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Pong.py</StartupFile>
+    <StartupFile>Hangman.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -23,10 +23,13 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="byebye.py" />
     <Compile Include="Hangman.py" />
     <Compile Include="HigherLower.py" />
     <Compile Include="ISITAEVENORODDNUMBER.py" />
+    <Compile Include="Memory.py" />
     <Compile Include="Pong.py" />
+    <Compile Include="random yt test.py" />
     <Compile Include="Utils.py" />
   </ItemGroup>
   <ItemGroup>

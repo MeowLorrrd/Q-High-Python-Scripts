@@ -1,16 +1,33 @@
-﻿import time, os, sys, random, platform, getpass, pygame
+﻿import time, os, sys, random, platform, getpass, keyboard
 
 global running
 global gameTime
-dis_hor = ' ╠════╬════╬════╣'
-dis_hor_end = ' ╚════╩════╩════╝'
-dis_hor_start = ' ╔════╦════╦════╗\n ║ 1. ║ 2. ║ 3. ║\n'
-dis_ver = ' ║ '
-gamedis_hor = '═════════════════════════════════════════════════════════════════════════════════'
-gamedis_ver = '┊\n┊\n┊\n┊\n┊\n┊\n┊\n┊\n┊\n┊\n┊\n┊\n┊\n┊\n┊\n┊\n┊\n┊\n┊\n┊\n┊\n┊\n┊\n┊\n┊\n┊\n┊\n'
 
 class Ball():
     wt = ""
+class Utils():
+    def Clear(preCls=0,postCls=0):
+        time.sleep(preCls);
+        os.system('cls');
+        time.sleep(postCls);
+    def NewTimedText(message: str, secs: float, loopCount: int = 3):
+        dots = []
+        dot = ''
+        for i in range(loopCount):
+            dot += '.'
+            dots.append(dot)
+        if secs > 0:
+            for i in range(loopCount):
+                print(message + dots[i], end='\r', flush=True)
+                time.sleep(secs)
+        print('\n')
+    def TryNum(i):
+        while True:
+            try:
+                i = int(i)
+                return i;
+            except ValueError:
+                i = input('Kan niet naar type \'int\' veranderen\nVoer een geldig getal in: ')
 def BoringSetup():
     global PlayerPos
     PlayerPos = [1, 15]
@@ -29,8 +46,6 @@ def BoringSetup():
     stick3 = ["/\\","||", "||", "||", "\/"]
     SelectableSticks = [stick1[:], stick2[:], stick3[:]]
 #Utils
-def Clear():
-    os.system('cls')
 def NewTimedText(message: str, secs: float, loopCount: int = 3):
     dots = []
     dot = ''
@@ -45,24 +60,23 @@ def NewTimedText(message: str, secs: float, loopCount: int = 3):
 
 def GetSplash(exitSplash: bool = False, shouldClear: bool = False):
     if (shouldClear):
-        Clear()
+        Utils.Clear(0,0);
     splashArray = [
-                " ",
-                " ",
-                "               ███████═╗░░█████╗░███╗░░██╗░░█████╗░░░░███╗",
-                "               ██╔═══██║░██╔══██╗████╗░██║░██╔══╝╚╗░░░███║",
-                "               ███████╔╝░██║░░██║██╔██╗██║░██║░░██╚╗░░░█╔╝",
-                "               ██╔════╝░░██║░░██║██║╚████║░██╝░░░██║░░░╚╝░",
-                "               ██║░░░░░░░╚█████╔╝██║░╚███║░╚██████╔╝░░░█╗░",
-                "               ╚═╝░░░░░░░░╚════╝░╚═╝░░╚══╝░░╚═════╝░░░░╚╝░"
+                "\n",
+                "\n",
+                "\t\t\t\t███████╗░░░█████╗░███╗░░██╗░░█████╗░░░░███╗\n",
+                "\t\t\t\t██╔═══██░░██╔══██╗████╗░██║░██╔══╝╚╗░░░███║\n",
+                "\t\t\t\t███████║░░██║░░██║██╔██╗██║░██║░░██╚╗░░░█╔╝\n",
+                "\t\t\t\t██╔════╝░░██║░░██║██║╚████║░██╝░░░██║░░░╚╝░\n",
+                "\t\t\t\t██║░░░░░░░╚█████╔╝██║░╚███║░╚██████╔╝░░░█╗░\n",
+                "\t\t\t\t╚═╝░░░░░░░░╚════╝░╚═╝░░╚══╝░░╚═════╝░░░░╚╝░\n"
                     ]
     splash = ''
     for i in range(len(splashArray)):
         splash += splashArray[i] + '\n'
-        if not (exitSplash):#so at start
-            print(splash)
-            #time.sleep(0.25)
-            Clear()
+        for j in range(len(splashArray[i])): 
+            print(splashArray[i][j], end='',flush=True)
+            time.sleep(0.025)
     if (exitSplash):
         splashArray2 = [
                 #"           ------------------------------------------",
@@ -92,28 +106,21 @@ def GetSplash(exitSplash: bool = False, shouldClear: bool = False):
 
 
 def SetupBoardDisplay():
-    print(dis_hor_start + dis_hor)
+    print(' ╔════╦════╦════╗\n ║ 1. ║ 2. ║ 3. ║\n ╠════╬════╬════╣')
     for i in range(5):
-        #selSticks += str(i + 1) + '.\n'+ SelectableSticks[i] + '\n\n\n'
-        #for j in range(len(SelectableSticks[i])):
-        #temSelStick += str(i + 1) + '.\n' + SelectableSticks[i][j]
-        print(str(dis_ver + SelectableSticks[0][i] + dis_ver + SelectableSticks[1][i] + dis_ver + SelectableSticks[2][i] + dis_ver))
-    print(dis_hor_end)
+        print(f' ║ {SelectableSticks[0][i]} ║ {SelectableSticks[1][i]} ║ {SelectableSticks[2][i]} ║ ')
+    print(' ╚════╩════╩════╝')
 
     #for layer in range(5):
         #print(str(SelectableSticks[0][layer]))
-    i = input('Kies een stick om te gebruiken:\n')
     while True:
-        try:
-            i = int(i)
-            if (i > 0 and i <= len(SelectableSticks)):
-                PlayerStick = SelectableSticks[i - 1]
-                SelectableSticks.remove(SelectableSticks[i - 1])
-                break
-            else:
-                i = input('Gekozen stick is niet geldig\nKies een stick om te gebruiken: ')
-        except ValueError:
-            i = input('Gekozen stick is niet geldig\nKies een stick om te gebruiken: ')
+        i = input('Kies een stick om te gebruiken: ')
+        i=Utils.TryNum(i);
+        if (i>=1) and (i<=3):
+            break
+        print(f'Getal is te {"groot" if (i > 3) else "klein"}')
+    PlayerStick=SelectableSticks[i-1];
+    SelectableSticks.remove(SelectableSticks[i-1]);
     temp = ''
     global PlayerSelectedStick
     for i in range(5):
@@ -121,7 +128,7 @@ def SetupBoardDisplay():
     print('Gekozen stick: \n' + temp)
     PlayerSelectedStick = temp
     temp = ''
-    NewTimedText('PC kies een stick', 0.5)
+    Utils.NewTimedText('PC kies een stick', 0.5)
     PCStick = random.choice(SelectableSticks[:])
     global PCSelectedStick
     for i in range(5):
@@ -139,18 +146,21 @@ def Main():
     running = True
     doneSetup = False
     if not (doneSetup):
-        print(GetSplash())
-        getpass.getpass("                     Druk op [ENTER] om te starten!")
-        Clear()
+        GetSplash()
+        getpass.getpass("\n\t\t\t\t\tDruk op [ENTER] om te starten!\n")
+        Utils.Clear(0,0)
         BoringSetup()
         SetupBoardDisplay()
         gameTime = 0
         doneSetup = True
     while running:
-        time.sleep(1/24)#24 fps i think?
+        time.sleep(1/12)#24 fps i think?
         gameTime += 1
         #print(str(gameTime))
-        Clear()
+        Utils.Clear()
         Update()
+        global PCSelectedStick
+        print(PCSelectedStick)
 
-Main()
+if __name__ == '__main__':
+    Main()
